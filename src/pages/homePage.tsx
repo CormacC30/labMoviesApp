@@ -26,6 +26,13 @@ const styles = {
 
     const genreId = Number(genreFilter);
 
+    const addToFavourites = (movieId: number) => {
+        const updatedMovies = movies.map((m: BaseMovieProps) =>
+          m.id === movieId ? { ...m, favourite: true } : m
+        );
+        setMovies(updatedMovies);
+      };
+
     let displayedMovies = movies
     .filter((m: BaseMovieProps) => {
       return m.title.toLowerCase().search(titleFilter.toLowerCase()) !== -1;
@@ -61,7 +68,7 @@ const styles = {
           <Header title={"Home Page"} />
         </Grid>
         <Grid item container spacing={5}>
-          <MovieList movies={displayedMovies}></MovieList>
+        <MovieList movies={displayedMovies} selectFavourite={addToFavourites} />
         </Grid>
       </Grid>
       <Fab
