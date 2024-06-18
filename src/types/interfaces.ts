@@ -31,7 +31,8 @@ export interface BaseMovieProps {
     production_countries: {
         iso_3166_1?: string;
         name: string;
-    }
+    };
+    selectFavourite: (movieId: number) => void;  //added this for movie details page header fav icon
   }
 
   export interface MovieImage {
