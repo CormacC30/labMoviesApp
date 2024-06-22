@@ -24,7 +24,7 @@ const styles = {
 };
 
 const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
-  
+  // sort this out
   const favourites = JSON.parse(localStorage.getItem("favourites") || '[]');
   let isFavourite: boolean = false;
   favourites.map((favourite: BaseMovieProps) => {
