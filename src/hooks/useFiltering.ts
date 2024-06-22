@@ -18,7 +18,7 @@ const useFiltering = ( filters: Filter[] ) => {
     const filteringConditions = filters.map((f) => f.condition);
     const filterFunction = (collection: any) => 
         filteringConditions.reduce((data, conditionFn, index) => {
-            return data.filter(( item:any ) => {
+            return data.filter(( item: any ) => {
                 return conditionFn(item, filterValues[index].value);
             });
         }, collection);
