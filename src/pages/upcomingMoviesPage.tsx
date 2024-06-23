@@ -5,7 +5,8 @@ import { getUpcomingMovies } from "../api/tmdb-api"; // need new import for upco
 import Spinner from "../components/spinner"
 import { useQuery } from "react-query";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
-
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import { IconButton } from "@mui/material";
 
 const UpcomingMoviesPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("upcoming movies", getUpcomingMovies);
@@ -41,9 +42,15 @@ const UpcomingMoviesPage: React.FC = () => {
     <PageTemplate
       title="Upcoming Movies"
       movies={movies}
-      action={(movie: BaseMovieProps) => {
-        return <AddToFavouritesIcon {...movie} />
-      }}
+      action={(movie: BaseMovieProps) => (
+        <>
+        <AddToFavouritesIcon {...movie} />
+        <IconButton>
+          <PlaylistAddIcon/>
+        </IconButton>
+        </>
+      )
+      }
       selectFavourite={addToFavourites}
     />
   );
