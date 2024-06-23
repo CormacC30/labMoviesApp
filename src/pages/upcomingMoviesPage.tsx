@@ -7,10 +7,13 @@ import { useQuery } from "react-query";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { IconButton } from "@mui/material";
+import { useMovies } from '../contexts/moviesContext';
 
 const UpcomingMoviesPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("upcoming movies", getUpcomingMovies);
    const [movies, setMovies] = useState<BaseMovieProps[]>([]);
+
+   const { addToMustWatch } = useMovies();
 
    useEffect(() => {
     if (data && data.results) {
@@ -19,8 +22,13 @@ const UpcomingMoviesPage: React.FC = () => {
   }, [data]);
 
  // const movies = data ? data.results : [];
-  const favourites = movies.filter((m) => m.favourite);
-  localStorage.setItem("favourites", JSON.stringify(favourites));
+  // const favourites = movies.filter((m) => m.favourite);
+  // localStorage.setItem("favourites", JSON.stringify(favourites));
+
+  useEffect(() => {
+    const favourites = movies.filter((m) => m.favourite);
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+  }, [movies]);
 
   const addToFavourites = (movieId: number) => {
     const updatedMovies = movies.map((m: BaseMovieProps) =>
@@ -45,7 +53,7 @@ const UpcomingMoviesPage: React.FC = () => {
       action={(movie: BaseMovieProps) => (
         <>
         <AddToFavouritesIcon {...movie} />
-        <IconButton>
+        <IconButton onClick={() => addToMustWatch(movie.id)}>
           <PlaylistAddIcon/>
         </IconButton>
         </>
